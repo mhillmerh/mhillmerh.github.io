@@ -5,7 +5,7 @@ title: Intro
 
 <div style="text-align:center; margin-top:50px;">
   <!-- Imagen estilo Doom con "Portafolio" -->
-  <img src="/assets/images/PORTAFOLIO.png" alt="Portafolio" style="max-width: 50%; height:70%;">
+  <img src="/assets/images/portafolio.png" alt="Portafolio" style="max-width: 50%; height:70%;">
 
   <!-- Texto tipo "Presiona continuar" parpadeante -->
   <h2 class="blink" style="margin-top:40px;">Continuar</h2>
