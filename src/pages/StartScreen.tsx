@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState} from "react";
+import { useEffect, useRef } from "react";
 import logo from "../assets/images/portafolio.png";
 
 import hoverSound from "../assets/sounds/doom_chat.wav";

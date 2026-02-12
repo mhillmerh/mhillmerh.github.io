@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { sounds } from "../components/SoundManager";
 import profilePic from "../assets/images/foto.png";
 import "/src/index.css";
