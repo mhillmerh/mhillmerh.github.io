@@ -82,7 +82,7 @@ export default function MenuScreen( {
                     ))}
                 </ul>
                 <p className="menu-hint"> 
-                    ↑ ↓ para moverse — Enter para elegir
+                    ↑ ↓ para moverse • Enter para elegir
                 </p>
             </main>
         </>

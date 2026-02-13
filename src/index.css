@@ -858,7 +858,20 @@ flex-shrink: 0;
   text-shadow: 2px 2px 8px black;
 }
 
+/* ========================================= */
+/* ✅ RESPONSIVE PACK FINAL (MOBILE + TABLET) */
+/* ========================================= */
+
+/* ----------------------------------------- */
+/* 🖥️ Desktop Doom Mode (sin scroll) */
+/* ----------------------------------------- */
 @media (min-width: 1024px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+  }
+
   .doom-footer {
     position: fixed;
     bottom: 15px;
@@ -867,30 +880,51 @@ flex-shrink: 0;
   }
 }
 
+/* ----------------------------------------- */
+/* 📱 Tablets + Mobile Mode (con scroll) */
+/* ----------------------------------------- */
 @media (max-width: 1023px) {
+  html,
+  body {
+    overflow-y: auto !important;
+    height: auto;
+  }
+
+  #root {
+    height: auto;
+  }
+
+  /* Footer deja de flotar */
   .doom-footer {
     position: relative;
-    margin-top: 40px;
+    margin-top: 50px;
+    padding-bottom: 20px;
   }
-}
 
-@media (max-width: 1023px) {
-  .tech-screen {
+  /* Todas las pantallas permiten scroll */
+  .about-screen,
+  .tech-screen,
+  .social-screen,
+  .menu-screen,
+  .start-screen {
+    min-height: 100vh;
+    height: auto;
     overflow-y: auto;
-    padding-bottom: 120px;
+    padding-bottom: 140px;
   }
 
-  .tech-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+  /* Botón volver siempre visible abajo */
+  .about-back,
   .tech-back {
     position: sticky;
-    bottom: 20px;
+    bottom: 15px;
+    margin-top: 40px;
+    z-index: 50;
   }
 
+  /* Social: layout vertical */
   .social-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     height: auto;
   }
 
@@ -898,5 +932,93 @@ flex-shrink: 0;
     max-height: 55vh;
     overflow-y: auto;
   }
-  
+}
+
+/* ----------------------------------------- */
+/* 📲 Tablets Portrait (<=768px) */
+/* ----------------------------------------- */
+@media (max-width: 768px) {
+  /* About */
+  .about-card.horizontal {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .about-photo {
+    width: 220px;
+    height: auto;
+  }
+
+  .about-info {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  /* Tech: 3 columnas */
+  .tech-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .tech-card {
+    padding: 12px;
+  }
+}
+
+/* ----------------------------------------- */
+/* 📱 Smartphones Grandes (<=480px) */
+/* ----------------------------------------- */
+@media (max-width: 480px) {
+  /* Menu */
+  .menu-title {
+    font-size: 2rem;
+    margin-top: 40px;
+  }
+
+  .menu-list {
+    margin-top: 40px;
+  }
+
+  /* Tech: 2 columnas */
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .tech-card img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .tech-card p {
+    font-size: 0.8rem;
+  }
+
+  /* Social */
+  .social-title {
+    font-size: 2rem;
+  }
+}
+
+/* ----------------------------------------- */
+/* 📱 Smartphones Pequeños (<=360px) */
+/* ----------------------------------------- */
+@media (max-width: 360px) {
+  .menu-title {
+    font-size: 1.6rem;
+  }
+
+  .menu-item {
+    font-size: 1.1rem;
+    padding: 10px;
+  }
+
+  .tech-card p {
+    font-size: 0.7rem;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+  }
 }

@@ -84,6 +84,13 @@ export default function TechScreen ({ onBack }: Props) {
                                     setSelected(index);
                                 }
                             }}
+                            onClick={() => {
+                                sounds.playSelect();
+                                setSelected(index);
+                                if (!showPanel) {
+                                    setShowPanel(true) 
+                                };
+                            }}
                         >
                             <img src={tech.icon} alt={tech.name}/>
                             <p>{tech.name}</p>
