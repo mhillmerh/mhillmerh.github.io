@@ -859,12 +859,9 @@ flex-shrink: 0;
 }
 
 /* ========================================= */
-/* ✅ RESPONSIVE PACK FINAL (MOBILE + TABLET) */
+/*              RESPONSIVE                   */
 /* ========================================= */
 
-/* ----------------------------------------- */
-/* 🖥️ Desktop Doom Mode (sin scroll) */
-/* ----------------------------------------- */
 @media (min-width: 1024px) {
   html,
   body {
@@ -875,33 +872,27 @@ flex-shrink: 0;
   .doom-footer {
     position: fixed;
     bottom: 15px;
-    left: 0;
-    width: 100%;
   }
 }
 
-/* ----------------------------------------- */
-/* 📱 Tablets + Mobile Mode (con scroll) */
-/* ----------------------------------------- */
 @media (max-width: 1023px) {
   html,
   body {
-    overflow-y: auto !important;
-    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   #root {
     height: auto;
   }
 
-  /* Footer deja de flotar */
   .doom-footer {
-    position: relative;
+    position: relative !important;
+    bottom: auto !important;
     margin-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
   }
 
-  /* Todas las pantallas permiten scroll */
   .about-screen,
   .tech-screen,
   .social-screen,
@@ -913,7 +904,6 @@ flex-shrink: 0;
     padding-bottom: 140px;
   }
 
-  /* Botón volver siempre visible abajo */
   .about-back,
   .tech-back {
     position: sticky;
@@ -922,7 +912,6 @@ flex-shrink: 0;
     z-index: 50;
   }
 
-  /* Social: layout vertical */
   .social-layout {
     grid-template-columns: 1fr !important;
     height: auto;
@@ -934,19 +923,24 @@ flex-shrink: 0;
   }
 }
 
-/* ----------------------------------------- */
-/* 📲 Tablets Portrait (<=768px) */
-/* ----------------------------------------- */
 @media (max-width: 768px) {
   /* About */
+  .menu-hint,
+  .about-hint,
+  .tech-hint,
+  .social-hint {
+    display: none !important;
+  }
+
   .about-card.horizontal {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
+    flex-direction: column !important;
+    width: 95%;
+    padding: 20px;
   }
 
   .about-photo {
-    width: 220px;
+    width: 100%;
+    max-width: 260px;
     height: auto;
   }
 
@@ -955,7 +949,6 @@ flex-shrink: 0;
     font-size: 1rem;
   }
 
-  /* Tech: 3 columnas */
   .tech-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 18px;
@@ -966,11 +959,7 @@ flex-shrink: 0;
   }
 }
 
-/* ----------------------------------------- */
-/* 📱 Smartphones Grandes (<=480px) */
-/* ----------------------------------------- */
 @media (max-width: 480px) {
-  /* Menu */
   .menu-title {
     font-size: 2rem;
     margin-top: 40px;
@@ -980,9 +969,8 @@ flex-shrink: 0;
     margin-top: 40px;
   }
 
-  /* Tech: 2 columnas */
   .tech-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
   }
 
@@ -995,15 +983,11 @@ flex-shrink: 0;
     font-size: 0.8rem;
   }
 
-  /* Social */
   .social-title {
     font-size: 2rem;
   }
 }
 
-/* ----------------------------------------- */
-/* 📱 Smartphones Pequeños (<=360px) */
-/* ----------------------------------------- */
 @media (max-width: 360px) {
   .menu-title {
     font-size: 1.6rem;
