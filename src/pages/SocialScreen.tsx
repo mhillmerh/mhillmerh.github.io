@@ -210,7 +210,7 @@ export default function SocialScreen({onBack}: Props) {
                     )}
                 </section>
             </div>
-            <p className="tech-back" onClick={onBack}>Volver</p>
+            <p className="social-back" onClick={onBack}>Volver</p>
             <p className="social-hint"> ↑ ↓ para moverse • Enter para elegir • Esc para volver</p> 
         </div>
     );

@@ -1,3 +1,12 @@
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
 body{
   margin: 0;
   font-family: monospace;
@@ -5,7 +14,7 @@ body{
 
 .start-screen {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
 
   background: url("assets/images/doom.png");
@@ -97,7 +106,8 @@ body{
 
 .menu-screen {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
@@ -264,7 +274,8 @@ body{
 
 .about-screen {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 
   background: url("assets/images/doom.png");
   background-size: cover;
@@ -379,16 +390,6 @@ flex-shrink: 0;
   color: white;
 }
 
-@media (max-widht: 700px) {
-  .about-card.horizontal {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .about-info {
-    text-align: center;
-  }
-}
 .doom-stats {
   margin-top: 18px;
   width: 250px;
@@ -475,7 +476,8 @@ flex-shrink: 0;
 
 .tech-screen {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 
   background: url("assets/images/doom.png");
   background-size: cover;
@@ -585,8 +587,12 @@ flex-shrink: 0;
 }
 
 .tech-hint {
-  margin-top: 18px;
+  margin-top: 28px;
   font-size: 0.85rem;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+
   opacity: 0.5;
   color: white;
   position: relative;
@@ -655,18 +661,6 @@ flex-shrink: 0;
   line-height: 1.4;
 }
 
-@media (max-width: 850px) {
-  .tech-layout {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .tech-panel {
-    width: 95%;
-    text-align: center;
-  }
-}
-
 .tech-panel-icon img {
   width: 45px;
   height: 45px;
@@ -682,6 +676,8 @@ flex-shrink: 0;
 .social-screen {
   height: 100vh;
   padding: 40px;
+  overflow: hidden;
+
   background: black;
   color: red;
   font-family: "DoomFont", monospace;
@@ -749,12 +745,45 @@ flex-shrink: 0;
 }
 
 .social-hint {
+  position: absolute;
+  width: 100%;
   margin-top: 18px;
+  bottom: 20px;
+
   font-size: 0.85rem;
+  text-align: center;
   opacity: 0.5;
   color: white;
   position: relative;
   z-index: 10;
+}
+
+.social-back{
+  margin-top:  50px;
+  position: absolute;
+  text-align: center;
+  font-family: "DoomFont", sans-serif;
+  font-size: 1.4rem;
+
+  color: #ff0000;
+  cursor: pointer;
+  letter-spacing: 4px;
+
+  background: none;
+  border: none;
+
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #aa0000, 0 0 20px #550000;
+
+  animation: blink 1s infinite;
+  transition: transform 0.15s ease, text-shadow 0.3s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.social-back:hover {
+  transform:  scale(1.08);
+  color: #ffcc00;
+  text-shadow: 0 0 8px #ff4444, 0 0 18px #ff0000, 0 0 335px #ff0000;
 }
 
 .crt-overlay {
@@ -812,12 +841,7 @@ flex-shrink: 0;
 }
 
 .doom-footer {
-  position: fixed;
-  bottom: 15px;
-  left: 0;
-  width: 100%;
-
-  font-family: monospace;
+  font-family: "DoomFont", monospace;
   text-transform: uppercase;
   text-align: center;
   align-items: center;
@@ -832,4 +856,47 @@ flex-shrink: 0;
 .doom-footer span{
   color: red;
   text-shadow: 2px 2px 8px black;
+}
+
+@media (min-width: 1024px) {
+  .doom-footer {
+    position: fixed;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .doom-footer {
+    position: relative;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .tech-screen {
+    overflow-y: auto;
+    padding-bottom: 120px;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tech-back {
+    position: sticky;
+    bottom: 20px;
+  }
+
+  .social-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .social-terminal {
+    max-height: 55vh;
+    overflow-y: auto;
+  }
+  
 }
