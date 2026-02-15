@@ -944,7 +944,71 @@ flex-shrink: 0;
   }
 }
 
-@media (max-width: 768){
+@media (max-width: 768px) {
+
+  .tech-screen {
+    padding: 25px 15px;
+    justify-content: space-between;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tech-carousel-zone { 
+    width: 100%;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tech-carousel-hud {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 18px;
+    margin-bottom: 25px;
+  }
+
+  .tech-page {
+    font-size: 0.9rem;
+    color: #ffcc00;
+    text-shadow:  0 0 8px red;
+    letter-spacing: 2px;
+  }
+
+  .tech-carousel {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .tech-bullets {
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .bullet {
+    font-size: 0.85rem;
+    opacity: 0.3;
+    color: red;
+    transition: 0.2s;
+    letter-spacing: 5px;
+  }
+
+  .bullet.active {
+    opacity: 1;
+    color: #ffcc00;
+    text-shadow: 0 0 8px red;
+    transform: scale(1.3);
+  }
 
 }
 
