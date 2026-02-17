@@ -4,7 +4,7 @@ import "/src/index.css";
 
 const menuItems = [
     { label: "Acerca de mí", screen: "about" },
-    { label: "Certificaciones", screen: "certifications" },
+    { label: "Certificaciones", screen: "cert" },
     { label: "Proyectos", screen: "projects" },
     { label: "Redes Sociales", screen: "social" },
     { label: "Tecnologías", screen: "tech" },

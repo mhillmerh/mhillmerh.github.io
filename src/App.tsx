@@ -4,11 +4,14 @@ import MenuScreen from './pages/MenuScreen';
 import AboutScreen from './pages/AboutScreen';
 import TechScreen from './pages/TechScreen';
 import SocialScreen from './pages/SocialScreen';
+import CertificationsScreen from './pages/CertificationsScreen';
+
 
 import DoorTransition from './components/DoorTransition';
 import Footer from './components/Footer';
 
 import { sounds } from './components/SoundManager';
+import ProjectsScreen from './pages/ProjectsScreen';
 
 export default function App() {
   const [screen, setScreen] = useState("start");
@@ -53,6 +56,12 @@ export default function App() {
 
       {screen === "about" && (
         <AboutScreen onBack={() => changeScreen("menu")}/>)}
+
+      {screen === "cert" && (
+        <CertificationsScreen onBack={() => changeScreen("menu")}/>)}
+
+      {screen === "projects" && (
+        <ProjectsScreen onBack={() => changeScreen("menu")}/>)}
 
       {screen === "tech" && (
         <TechScreen onBack={() => changeScreen("menu")}/>)}

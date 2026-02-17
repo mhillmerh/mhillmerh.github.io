@@ -15,23 +15,26 @@ export default function TechScreen ({ onBack }: Props) {
     const [showPanel, setShowPanel] = useState(false);
     
     const [page, setPage] = useState(0);
-    const totalPages = Math.ceil(techlist.length / items_per_page);
+    const isMobile = window.innerWidth <= 768;
+    const totalPages = isMobile ? Math.ceil(techlist.length / items_per_page): 1;
 
     const startIndex = page * items_per_page;
-    const currentItems = techlist.slice(startIndex, startIndex + items_per_page);
+    const currentItems = isMobile ? techlist.slice(startIndex, startIndex + items_per_page): techlist;
 
-    const realIndex = startIndex + selected;
+    const realIndex = isMobile ? startIndex + selected : selected;
 
     const touchStartX = useRef<number | null>(null);
     const touchEndX = useRef<number | null>(null);
 
     function nextPage() {
+        if (!isMobile) return;
         sounds.playMove();
         setPage((prev) => (prev + 1) % totalPages);
         setSelected(0);
     }
 
     function prevPage() {
+        if (!isMobile) return;
         sounds.playMove();
         setPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
         setSelected(0);
@@ -71,7 +74,7 @@ export default function TechScreen ({ onBack }: Props) {
                     return;
                 }
 
-                const columns = 3;
+                const columns = isMobile ? 3 : 5;
 
                 if (e.key === "ArrowRight") {
                     setSelected((prev) => {       
@@ -107,11 +110,11 @@ export default function TechScreen ({ onBack }: Props) {
                     onBack();
                 }
 
-                if (e.key === "e") {
+                if (isMobile && e.key === "e") {
                     prevPage();
                 }
 
-                if (e.key === "q") {
+                if (isMobile && e.key === "q") {
                     nextPage();
                 }
             };
@@ -122,11 +125,13 @@ export default function TechScreen ({ onBack }: Props) {
     return (
         <div className="tech-screen">
             <h1 className="tech-title">TECH ARSENAL</h1>
-                <div className="tech-carousel-zone"
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}>
-                    <div className="tech-grid tech-carousel">
+                <div className="tech-carousel-zone"{...(isMobile && {
+                    onTouchStart: handleTouchStart,
+                    onTouchMove: handleTouchMove,
+                    onTouchEnd: handleTouchEnd,
+                })}
+                >
+                    <div className="tech-grid">
                         {currentItems.map((tech, index)=> (
                             <div
                                 key={tech.name}
