@@ -9,6 +9,7 @@ const menuItems = [
     { label: "Redes Sociales", screen: "social" },
     { label: "Tecnologías", screen: "tech" },
     { label: "Arcade", screen: "arcade" },
+    { label: "Creditos", screen: "credits"},
 ];
 
 export default function MenuScreen( {

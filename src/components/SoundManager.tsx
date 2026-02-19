@@ -4,6 +4,10 @@ import doorSound from "../assets/sounds/doom_door.wav";
 import modemSound from "../assets/sounds/modem.mp3";
 import shotSound from "../assets/sounds/doom_shot.wav";
 import hoverSound from "../assets/sounds/doom_chat.wav";
+import themeSound from "../assets/sounds/At Doom's Gate.wav";
+import creditsSound from "../assets/sounds/Victory.wav";
+
+
 
 class SoundManager {
     private moveAudio: HTMLAudioElement;
@@ -12,6 +16,9 @@ class SoundManager {
     private modemAudio: HTMLAudioElement;
     private shotAudio: HTMLAudioElement;
     private hoverAudio: HTMLAudioElement;
+
+    private musicAudio: HTMLAudioElement | null = null;
+    private muted = false;
 
     constructor() {
         this.moveAudio = new Audio(moveSound);
@@ -67,6 +74,49 @@ class SoundManager {
     playHover() {
         const sound = this.hoverAudio.cloneNode(true) as HTMLAudioElement;
         sound.play();
+    }
+
+    playTheme() {
+        this.playMusic(themeSound, 0.25);
+    }
+
+    playCreditsMusic() {
+        this.playMusic(creditsSound, 0.35);
+    }
+
+    private playMusic(src: string, volume: number) {
+        if (this.muted) return;
+
+        this.stopMusic();
+
+        this.musicAudio = new Audio(src);
+        this.musicAudio.loop = true;
+        this.musicAudio.volume = volume;
+        this.musicAudio.play();
+    }
+
+    stopMusic() {
+        if (!this.musicAudio) return;
+
+        this.musicAudio.pause();
+        this.musicAudio.currentTime = 0;
+        this.musicAudio = null;
+    }
+
+    toggleMute() {
+        this.muted = !this.muted;
+
+        if (this.muted) {
+            this.stopMusic();
+        }else{
+            this.playTheme();
+        }
+
+        return this.muted;
+    }
+
+    isMuted() {
+        return this.muted;
     }
 }
 

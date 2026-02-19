@@ -1,17 +1,20 @@
-import { useState} from 'react'
+import { useEffect, useState} from 'react'
+import { sounds } from './components/SoundManager';
+
 import StartScreen from './pages/StartScreen';
 import MenuScreen from './pages/MenuScreen';
 import AboutScreen from './pages/AboutScreen';
 import TechScreen from './pages/TechScreen';
 import SocialScreen from './pages/SocialScreen';
 import CertificationsScreen from './pages/CertificationsScreen';
+import ProjectsScreen from './pages/ProjectsScreen';
+import CreditsScreen from './pages/CreditsScreen';
 
 
 import DoorTransition from './components/DoorTransition';
 import Footer from './components/Footer';
+import MusicToggle from './components/MusicToggle';
 
-import { sounds } from './components/SoundManager';
-import ProjectsScreen from './pages/ProjectsScreen';
 
 export default function App() {
   const [screen, setScreen] = useState("start");
@@ -40,11 +43,16 @@ export default function App() {
       setDoorActive(false);
     }, 2200);
   }
+  
+  useEffect(() => {
+    sounds.playTheme();
+    return () => sounds.stopMusic();
+  },[]);
 
   return (
     <>
       <DoorTransition active={doorActive} phase={phase} />
-
+      
       {screen === "start" && (
         <StartScreen onStart={() => changeScreen("menu")} />
       )}
@@ -69,6 +77,10 @@ export default function App() {
       {screen === "social" && (
         <SocialScreen onBack={() => changeScreen("menu")}/>)}
 
+      {screen === "credits" && (
+        <CreditsScreen onBack={() => changeScreen("menu")}/>)}
+
+      <MusicToggle/>
       <Footer/>
       
     </>
