@@ -1,0 +1,324 @@
+@media (max-width: 991.98px) {
+  .sidebar-panel {
+    border-right: 0;
+    border-bottom: 2px solid rgba(255, 60, 60, 0.25);
+  }
+
+  .sidebar-inner {
+    min-height: auto;
+  }
+
+  .main-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .content-frame {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .main-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .main-panel,
+  .content-frame,
+  .sidebar-inner {
+    padding: 16px;
+  }
+
+  .menu-btn:hover {
+    transform: none;
+  }
+
+  .hero-card p,
+  .retro-card p {
+    font-size: 1.2rem;
+  }
+}
+
+/* ABOUT */
+@media (max-width: 1199.98px) {
+  .about-avatar-frame {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .about-title {
+    font-size: 1.8rem;
+  }
+
+  .about-text {
+    font-size: 1.2rem;
+  }
+
+  .status-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-value {
+    text-align: left;
+  }
+
+  .about-actions {
+    flex-direction: column;
+  }
+
+  .doom-action-btn {
+    width: 100%;
+  }
+
+  .mini-stat-card h4 {
+    font-size: 1.15rem;
+  }
+
+  .mini-stat-card p {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .top-controls {
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .music-toggle-btn {
+    width: 100%;
+  }
+}
+
+/* PROJECTS */
+@media (max-width: 1199.98px) {
+  .projects-grid-custom {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .projects-grid-custom {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .projects-pagination {
+    justify-content: space-between;
+  }
+
+  .projects-page-btn {
+    flex: 1;
+  }
+
+  .project-doom-title {
+    font-size: 1.3rem;
+  }
+
+  .project-doom-desc {
+    font-size: 1.1rem;
+  }
+
+  .project-doom-header {
+    flex-direction: column;
+  }
+
+  .project-doom-type {
+    align-self: flex-start;
+  }
+}
+
+/* TECHNOLOGIES */
+@media (max-width: 1199.98px) {
+  .technologies-grid-custom {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .technologies-grid-custom {
+    grid-template-columns: 1fr;
+  }
+
+  .technologies-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .technologies-pagination {
+    justify-content: space-between;
+  }
+
+  .technologies-page-btn {
+    flex: 1;
+  }
+
+  .tech-doom-card {
+    min-height: 120px;
+    padding: 14px;
+  }
+
+  .tech-doom-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tech-doom-name {
+    font-size: 1.15rem;
+  }
+
+  .tech-doom-level {
+    font-size: 0.95rem;
+  }
+}
+
+/* ARCADE */
+@media (max-width: 991.98px) {
+  .arcade-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .arcade-visual {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .arcade-info {
+    padding: 16px;
+  }
+
+  .arcade-title {
+    font-size: 1.6rem;
+  }
+
+  .arcade-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* SOCIAL */
+@media (max-width: 991.98px) {
+  .social-layout-doom {
+    grid-template-columns: 1fr;
+  }
+
+  .social-terminal-doom {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .social-title-doom {
+    font-size: 1.6rem;
+  }
+
+  .freq-item-doom:hover {
+    transform: none;
+  }
+
+  .terminal-actions-doom {
+    flex-direction: column;
+  }
+
+  .doom-btn-terminal {
+    width: 100%;
+  }
+
+  .terminal-text-doom,
+  .terminal-idle-doom {
+    font-size: 1.05rem;
+  }
+
+  .social-hint-doom {
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+}
+
+/* CREDITS */
+@media (max-width: 767.98px) {
+  .credits-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .credits-controls {
+    width: 100%;
+  }
+
+  .credits-btn {
+    flex: 1;
+  }
+
+  .credits-stage {
+    height: 420px;
+  }
+
+  .credits-title {
+    font-size: 1.8rem;
+  }
+
+  .credits-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .credits-line {
+    font-size: 1.1rem;
+  }
+}
+
+/* CERTIFICATIONS */
+@media (max-width: 991.98px) {
+  .certifications-grid-custom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .certifications-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .certifications-pagination {
+    justify-content: space-between;
+  }
+
+  .certifications-page-btn {
+    flex: 1;
+  }
+
+  .cert-doom-header {
+    flex-direction: column;
+  }
+
+  .cert-doom-badge {
+    align-self: flex-start;
+  }
+
+  .cert-doom-title {
+    font-size: 1.2rem;
+  }
+
+  .cert-doom-desc {
+    font-size: 1rem;
+  }
+}
+
+/* CERTIFICATION MEDAL */
+@media (max-width: 767.98px) {
+  .cert-doom-top {
+    align-items: flex-start;
+  }
+
+  .cert-medal-wrap {
+    width: 58px;
+    height: 58px;
+  }
+}
