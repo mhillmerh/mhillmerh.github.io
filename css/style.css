@@ -1338,3 +1338,19 @@ button {
     transform: rotateY(360deg);
   }
 }
+
+.about-right-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.about-main-card,
+.about-stats-card {
+  margin: 0;
+}
+
+.about-stats-card {
+  border-color: rgba(255, 204, 0, 0.14);
+}
