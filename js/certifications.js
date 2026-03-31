@@ -1,13 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initCertificationsSection() {
   const certifications = [
     {
       title: "Microsoft Azure Fundamentals AZ-900",
       issuer: "Microsoft",
-      medal:"assets/images/badges/AZ-900.png",
+      medal: "assets/images/badges/AZ-900.png",
       date: "2023",
       type: "Certificate",
       description:
-      "Validate Foundational Knoledge of cloud concepts, Azure services, pricing and security",
+        "Validate foundational knowledge of cloud concepts, Azure services, pricing and security.",
       link: "https://www.credly.com/badges/5b40ffcc-708a-44ab-82d9-9087735bc3b6/public_url"
     },
     {
@@ -17,17 +17,17 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "2025",
       type: "Certificate",
       description:
-        "Test automation uses programming to verify web application functionality and detect errors. Professionals in this field design automated tests that are integrated into the continuous software development process ",
+        "Test automation uses programming to verify web application functionality and detect errors. Professionals in this field design automated tests integrated into the continuous software development process.",
       link: "https://eligemejor.sence.cl/PerfilNatural/DescargarCertificado?idCurso=BOTIC-SOFOF-24-28-13-0030&idFederacion=5&rutAsistido="
     },
     {
-      title: "Desarrollo de aplicaiones Full-Stack Java Trainee",
+      title: "Desarrollo de aplicaciones Full-Stack Java Trainee",
       issuer: "Sence",
       medal: "assets/images/badges/doom_disk.png",
       date: "2026",
       type: "Course",
       description:
-        "Curso enfocado en pruebas funcionales, validación de APIs y herramientas de testing.",
+        "Programa de formación orientado al desarrollo full stack con Java y herramientas asociadas.",
       link: "#"
     },
     {
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "2026",
       type: "Course",
       description:
-        "Currently in progress. Focused on building cloud solutions using Azure services",
+        "Currently in progress. Focused on building cloud solutions using Azure services.",
       link: "#"
     }
   ];
@@ -47,9 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("certNextBtn");
   const indicator = document.getElementById("certPageIndicator");
 
-  if (!grid || !prevBtn || !nextBtn || !indicator) return;
+  if (!grid || !prevBtn || !nextBtn || !indicator) {
+    return;
+  }
 
   let currentPage = 1;
+  let resizeTimeout = null;
 
   function getItemsPerPage() {
     const width = window.innerWidth;
@@ -81,28 +84,28 @@ document.addEventListener("DOMContentLoaded", () => {
             : "";
 
         return `
-  <article class="cert-doom-card">
-    <div class="cert-doom-top">
-      <div class="cert-medal-wrap">
-        <img src="${cert.medal}" alt="Medalla de ${cert.title}" class="cert-medal-icon">
-      </div>
+          <article class="cert-doom-card">
+            <div class="cert-doom-top">
+              <div class="cert-medal-wrap">
+                <img src="${cert.medal}" alt="Medalla de ${cert.title}" class="cert-medal-icon">
+              </div>
 
-      <div class="cert-doom-header">
-        <h3 class="cert-doom-title">${cert.title}</h3>
-        <span class="cert-doom-badge">${cert.type}</span>
-      </div>
-    </div>
+              <div class="cert-doom-header">
+                <h3 class="cert-doom-title">${cert.title}</h3>
+                <span class="cert-doom-badge">${cert.type}</span>
+              </div>
+            </div>
 
-    <p class="cert-doom-org">${cert.issuer}</p>
-    <p class="cert-doom-date">${cert.date}</p>
+            <p class="cert-doom-org">${cert.issuer}</p>
+            <p class="cert-doom-date">${cert.date}</p>
 
-    <p class="cert-doom-desc">${cert.description}</p>
+            <p class="cert-doom-desc">${cert.description}</p>
 
-    <div class="cert-doom-footer">
-      ${linkBtn}
-    </div>
-  </article>
-`;
+            <div class="cert-doom-footer">
+              ${linkBtn}
+            </div>
+          </article>
+        `;
       })
       .join("");
 
@@ -111,22 +114,38 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = currentPage === totalPages;
   }
 
-  prevBtn.addEventListener("click", () => {
+  function handlePrevClick() {
     if (currentPage > 1) {
       currentPage--;
       renderCertifications();
     }
-  });
+  }
 
-  nextBtn.addEventListener("click", () => {
+  function handleNextClick() {
     const totalPages = getTotalPages(getItemsPerPage());
+
     if (currentPage < totalPages) {
       currentPage++;
       renderCertifications();
     }
-  });
+  }
 
-  window.addEventListener("resize", renderCertifications);
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      renderCertifications();
+    }, 120);
+  }
+
+  prevBtn.onclick = handlePrevClick;
+  nextBtn.onclick = handleNextClick;
+
+  if (window.__certificationsResizeHandler) {
+    window.removeEventListener("resize", window.__certificationsResizeHandler);
+  }
+
+  window.__certificationsResizeHandler = handleResize;
+  window.addEventListener("resize", window.__certificationsResizeHandler);
 
   renderCertifications();
-});
+}

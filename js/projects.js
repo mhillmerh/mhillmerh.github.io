@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initProjectsSection() {
   const projects = [
     {
       title: "AppInventario",
@@ -35,8 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       technologies: ["Python", "Flask", "MySQL", "REST API"],
       image: "assets/images/projects/API.png",
       github: "#"
-    },
-    
+    }
   ];
 
   const grid = document.getElementById("projectsGrid");
@@ -44,17 +43,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("projectsNextBtn");
   const indicator = document.getElementById("projectsPageIndicator");
 
-  if (!grid || !prevBtn || !nextBtn || !indicator) return;
+  if (!grid || !prevBtn || !nextBtn || !indicator) {
+    return;
+  }
 
   let currentPage = 1;
+  let resizeTimeout = null;
 
   function getItemsPerPage() {
-  const width = window.innerWidth;
+    const width = window.innerWidth;
 
-  if (width < 768) return 1;
-  if (width < 1200) return 2;
-  return 3;
-}
+    if (width < 768) return 1;
+    if (width < 1200) return 2;
+    return 3;
+  }
 
   function getTotalPages(itemsPerPage) {
     return Math.max(1, Math.ceil(projects.length / itemsPerPage));
@@ -107,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               <div class="project-doom-footer">
                 ${githubBtn}
+                ${demoBtn}
               </div>
             </div>
           </article>
@@ -119,22 +122,38 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = currentPage === totalPages;
   }
 
-  prevBtn.addEventListener("click", () => {
+  function handlePrevClick() {
     if (currentPage > 1) {
       currentPage--;
       renderProjects();
     }
-  });
+  }
 
-  nextBtn.addEventListener("click", () => {
+  function handleNextClick() {
     const totalPages = getTotalPages(getItemsPerPage());
+
     if (currentPage < totalPages) {
       currentPage++;
       renderProjects();
     }
-  });
+  }
 
-  window.addEventListener("resize", renderProjects);
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      renderProjects();
+    }, 120);
+  }
+
+  prevBtn.onclick = handlePrevClick;
+  nextBtn.onclick = handleNextClick;
+
+  if (window.__projectsResizeHandler) {
+    window.removeEventListener("resize", window.__projectsResizeHandler);
+  }
+
+  window.__projectsResizeHandler = handleResize;
+  window.addEventListener("resize", window.__projectsResizeHandler);
 
   renderProjects();
-});
+}

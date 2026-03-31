@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initTechnologiesSection() {
   const technologies = [
     {
       name: "HTML",
@@ -62,14 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       name: "TypeScript",
-      category: "Testing",
-      level: "APIs, desarrollo web y aplicaciones moviles.",
+      category: "Frontend / Typed JS",
+      level: "Desarrollo web tipado y aplicaciones modernas.",
       medal: "assets/icons/typescripticon.svg"
     },
     {
       name: "Ionic",
-      category: "Movil Devps",
-      level: "Desarrollo de aplicaciones moviles.",
+      category: "Mobile Dev",
+      level: "Desarrollo de aplicaciones móviles multiplataforma.",
       medal: "assets/icons/ionicicon.svg"
     }
   ];
@@ -79,9 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("techNextBtn");
   const indicator = document.getElementById("techPageIndicator");
 
-  if (!grid || !prevBtn || !nextBtn || !indicator) return;
+  if (!grid || !prevBtn || !nextBtn || !indicator) {
+    return;
+  }
 
   let currentPage = 1;
+  let resizeTimeout = null;
 
   function getItemsPerPage() {
     const width = window.innerWidth;
@@ -129,22 +132,38 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = currentPage === totalPages;
   }
 
-  prevBtn.addEventListener("click", () => {
+  function handlePrevClick() {
     if (currentPage > 1) {
       currentPage--;
       renderTechnologies();
     }
-  });
+  }
 
-  nextBtn.addEventListener("click", () => {
+  function handleNextClick() {
     const totalPages = getTotalPages(getItemsPerPage());
+
     if (currentPage < totalPages) {
       currentPage++;
       renderTechnologies();
     }
-  });
+  }
 
-  window.addEventListener("resize", renderTechnologies);
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      renderTechnologies();
+    }, 120);
+  }
+
+  prevBtn.onclick = handlePrevClick;
+  nextBtn.onclick = handleNextClick;
+
+  if (window.__technologiesResizeHandler) {
+    window.removeEventListener("resize", window.__technologiesResizeHandler);
+  }
+
+  window.__technologiesResizeHandler = handleResize;
+  window.addEventListener("resize", window.__technologiesResizeHandler);
 
   renderTechnologies();
-});
+}

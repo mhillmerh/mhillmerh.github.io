@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const creditsScreen = document.getElementById("credits");
+function initCreditsSection() {
   const creditsRoll = document.getElementById("creditsRoll");
   const toggleBtn = document.getElementById("creditsToggleBtn");
   const restartBtn = document.getElementById("creditsRestartBtn");
@@ -8,13 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const creditsMusic = document.getElementById("creditsMusic");
   const musicToggleBtn = document.getElementById("musicToggleBtn");
 
-  if (!creditsScreen || !creditsRoll || !toggleBtn || !restartBtn) return;
+  if (!creditsRoll || !toggleBtn || !restartBtn) {
+    return;
+  }
 
   let animationFrame = null;
   let isPaused = false;
-  let isCreditsActive = false;
+  let isCreditsActive = true;
   let y = 0;
-  let speed = 0.45;
+  const speed = 0.45;
   let bgWasPlayingBeforeCredits = false;
 
   function isMainMusicEnabled() {
@@ -28,20 +29,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function step() {
-    if (!isCreditsActive || isPaused) {
-      animationFrame = requestAnimationFrame(step);
+    if (!isCreditsActive) {
       return;
     }
 
-    const rollHeight = creditsRoll.scrollHeight;
-    const stage = creditsRoll.parentElement;
-    const stageHeight = stage ? stage.clientHeight : 520;
+    if (!isPaused) {
+      const rollHeight = creditsRoll.scrollHeight;
+      const stage = creditsRoll.parentElement;
+      const stageHeight = stage ? stage.clientHeight : 520;
 
-    y -= speed;
-    creditsRoll.style.transform = `translateY(${y}px)`;
+      y -= speed;
+      creditsRoll.style.transform = `translateY(${y}px)`;
 
-    if (y < -rollHeight) {
-      y = stageHeight;
+      if (y < -rollHeight) {
+        y = stageHeight;
+      }
     }
 
     animationFrame = requestAnimationFrame(step);
@@ -77,42 +79,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function updateCreditsState() {
-    const visible = !creditsScreen.classList.contains("d-none");
-
-    if (visible && !isCreditsActive) {
-      isCreditsActive = true;
-      isPaused = false;
-      toggleBtn.textContent = "PAUSE";
-      resetCreditsPosition();
-      playCreditsMusic();
-    } else if (!visible && isCreditsActive) {
-      isCreditsActive = false;
-      stopCreditsMusic();
-    }
-  }
-
-  toggleBtn.addEventListener("click", () => {
+  function handleToggleClick() {
     isPaused = !isPaused;
     toggleBtn.textContent = isPaused ? "RESUME" : "PAUSE";
-  });
+  }
 
-  restartBtn.addEventListener("click", () => {
+  function handleRestartClick() {
     resetCreditsPosition();
     isPaused = false;
     toggleBtn.textContent = "PAUSE";
-  });
+  }
 
-  const observer = new MutationObserver(() => {
-    updateCreditsState();
-  });
+  function cleanupCreditsSection() {
+    isCreditsActive = false;
 
-  observer.observe(creditsScreen, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    }
+
+    stopCreditsMusic();
+
+    toggleBtn.onclick = null;
+    restartBtn.onclick = null;
+
+    if (window.__creditsResizeHandler) {
+      window.removeEventListener("resize", window.__creditsResizeHandler);
+      window.__creditsResizeHandler = null;
+    }
+
+    if (window.__creditsSectionCleanup === cleanupCreditsSection) {
+      window.__creditsSectionCleanup = null;
+    }
+  }
+
+  function handleResize() {
+    resetCreditsPosition();
+  }
+
+  if (window.__creditsSectionCleanup) {
+    window.__creditsSectionCleanup();
+  }
+
+  window.__creditsSectionCleanup = cleanupCreditsSection;
+
+  toggleBtn.onclick = handleToggleClick;
+  restartBtn.onclick = handleRestartClick;
+
+  if (window.__creditsResizeHandler) {
+    window.removeEventListener("resize", window.__creditsResizeHandler);
+  }
+
+  window.__creditsResizeHandler = handleResize;
+  window.addEventListener("resize", window.__creditsResizeHandler);
 
   resetCreditsPosition();
-  updateCreditsState();
+  playCreditsMusic();
   animationFrame = requestAnimationFrame(step);
-});
+}

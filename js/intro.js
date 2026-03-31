@@ -7,78 +7,104 @@ document.addEventListener("DOMContentLoaded", () => {
   const bgMusic = document.getElementById("bgMusic");
   const doorSound = document.getElementById("doorSound");
   const switchSound = document.getElementById("switchSound");
+  const musicToggleBtn = document.getElementById("musicToggleBtn");
+
+  if (!introScreen || !appShell || !pressStartBtn || !doorTransition) {
+    return;
+  }
 
   let started = false;
+  let introFinished = false;
+  let introTimeouts = [];
 
-  function beginExperience() {
-    if (started) return;
-    started = true;
+  function registerTimeout(callback, delay) {
+    const id = setTimeout(callback, delay);
+    introTimeouts.push(id);
+    return id;
+  }
 
-    // sonido del switch
-    if (switchSound) {
-      switchSound.currentTime = 0;
-      switchSound.play().catch(() => {});
+  function clearIntroTimeouts() {
+    introTimeouts.forEach((id) => clearTimeout(id));
+    introTimeouts = [];
+  }
+
+  function updateMusicButtonState() {
+    if (!musicToggleBtn || !bgMusic) return;
+
+    const musicEnabled = !bgMusic.paused;
+    musicToggleBtn.textContent = musicEnabled ? "AUDIO: ON" : "AUDIO: OFF";
+    musicToggleBtn.classList.toggle("off", !musicEnabled);
+  }
+
+  function playSafe(audio, volume = null) {
+    if (!audio) return;
+
+    if (typeof volume === "number") {
+      audio.volume = volume;
     }
 
-    // mostrar puertas abiertas primero
-    doorTransition.classList.remove("hidden");
-    doorTransition.classList.remove("closing", "closed", "opening");
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }
 
-    // Forzar reflow para que el navegador pinte el estado inicial ANTES de animar
+  function beginExperience() {
+    if (started || introFinished) return;
+    started = true;
+
+    playSafe(switchSound);
+
+    doorTransition.classList.remove("hidden", "closing", "closed", "opening");
+
     void doorTransition.offsetWidth;
 
-    // pequeño delay para que se note que "aparecieron abiertas"
-    setTimeout(() => {
-      // 1) CERRAR puertas
+    registerTimeout(() => {
       doorTransition.classList.add("closing");
+      playSafe(doorSound);
 
-      if (doorSound) {
-        doorSound.currentTime = 0;
-        doorSound.play().catch(() => {});
-      }
-
-      setTimeout(() => {
-        // quedan cerradas
+      registerTimeout(() => {
         doorTransition.classList.remove("closing");
         doorTransition.classList.add("closed");
 
-        // ocultamos intro mientras están cerradas
         introScreen.classList.add("hidden");
-
-        // mostramos la app detrás
         appShell.classList.remove("hidden");
 
-        // pausa corta para que se sienta el cierre completo
-        setTimeout(() => {
-          // 2) ABRIR puertas
+        registerTimeout(() => {
           doorTransition.classList.remove("closed");
           doorTransition.classList.add("opening");
+          playSafe(doorSound);
 
-          if (doorSound) {
-            doorSound.currentTime = 0;
-            doorSound.play().catch(() => {});
-          }
-
-          // música
           if (bgMusic) {
-            bgMusic.volume = 0.45;
-            bgMusic.play().catch(() => {});
+            playSafe(bgMusic, 0.45);
+            updateMusicButtonState();
           }
 
-          setTimeout(() => {
+          registerTimeout(() => {
             doorTransition.classList.add("hidden");
             doorTransition.classList.remove("opening");
+            introFinished = true;
+            clearIntroTimeouts();
           }, 1100);
         }, 400);
       }, 1100);
     }, 120);
   }
 
-  pressStartBtn.addEventListener("click", beginExperience);
+  function handleIntroKeydown(event) {
+    if (introFinished || started) return;
 
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
+    const key = event.key;
+
+    if (key === "Enter" || key === " ") {
+      event.preventDefault();
       beginExperience();
     }
-  });
+  }
+
+  pressStartBtn.addEventListener("click", beginExperience);
+  window.addEventListener("keydown", handleIntroKeydown);
+
+  window.__introCleanup = () => {
+    clearIntroTimeouts();
+    window.removeEventListener("keydown", handleIntroKeydown);
+  };
 });

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initSocialSection() {
   const channels = [
     {
       freq: "88.4 MHz",
@@ -28,7 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const copyBtn = document.getElementById("socialCopyBtn");
   const copiedMsg = document.getElementById("socialCopiedMsg");
 
-  if (!freqList || !idleText || !terminalText || !terminalActions || !openBtn || !copyBtn || !copiedMsg) {
+  if (
+    !freqList ||
+    !idleText ||
+    !terminalText ||
+    !terminalActions ||
+    !openBtn ||
+    !copyBtn ||
+    !copiedMsg
+  ) {
     return;
   }
 
@@ -38,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let cursorVisible = true;
   let typingInterval = null;
   let copiedTimeout = null;
+  let cursorInterval = null;
+  let isSocialActive = true;
+  let currentRenderedText = "";
 
   const modemAudio = new Audio("assets/sounds/modem.mp3");
   const chatAudio = new Audio("assets/sounds/doom_chat.wav");
@@ -58,27 +69,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderFreqList() {
-  freqList.innerHTML = channels
-    .map((channel, index) => {
-      const activeClass = selected === index ? "active" : "";
-      return `
-        <div class="freq-item-doom ${activeClass}" data-index="${index}">
-          <span class="freq-code-doom">${channel.freq}</span>
-          <span class="freq-name-doom">${channel.name}</span>
-        </div>
-      `;
-    })
-    .join("");
+    freqList.innerHTML = channels
+      .map((channel, index) => {
+        const activeClass = selected === index ? "active" : "";
+        return `
+          <div class="freq-item-doom ${activeClass}" data-index="${index}">
+            <span class="freq-code-doom">${channel.freq}</span>
+            <span class="freq-name-doom">${channel.name}</span>
+          </div>
+        `;
+      })
+      .join("");
 
-  freqList.querySelectorAll(".freq-item-doom").forEach((item) => {
-    item.addEventListener("click", () => {
-      const index = Number(item.dataset.index);
-      selected = index;
-      renderFreqList();
-      activateChannel(index);
+    freqList.querySelectorAll(".freq-item-doom").forEach((item) => {
+      item.onclick = () => {
+        const index = Number(item.dataset.index);
+        selected = index;
+        renderFreqList();
+        activateChannel(index);
+      };
     });
-  });
-}
+  }
 
   function getLines(channel) {
     return [
@@ -102,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function activateChannel(index) {
     activeChannel = index;
     typingDone = false;
+    currentRenderedText = "";
 
     if (typingInterval) {
       clearInterval(typingInterval);
@@ -109,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     copiedMsg.classList.add("d-none");
+    copiedMsg.textContent = "> COPIED TO BUFFER.";
     idleText.classList.add("d-none");
     terminalText.classList.remove("d-none");
     terminalActions.classList.add("d-none");
@@ -122,8 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
     playSafe(modemAudio);
 
     typingInterval = setInterval(() => {
+      if (!isSocialActive) return;
+
       if (current < lines.length) {
         content += (current === 0 ? "" : "\n") + lines[current];
+        currentRenderedText = content;
         terminalText.textContent = content;
         current++;
       } else {
@@ -132,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         typingDone = true;
         stopSafe(modemAudio);
         playSafe(chatAudio);
-        renderCursorText(content);
+        renderCursorText(currentRenderedText);
         terminalActions.classList.remove("d-none");
       }
     }, 550);
@@ -156,9 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await navigator.clipboard.writeText(channels[activeChannel].value);
       playSafe(pickupAudio);
+      copiedMsg.textContent = "> COPIED TO BUFFER.";
       copiedMsg.classList.remove("d-none");
 
-      if (copiedTimeout) clearTimeout(copiedTimeout);
+      if (copiedTimeout) {
+        clearTimeout(copiedTimeout);
+      }
+
       copiedTimeout = setTimeout(() => {
         copiedMsg.classList.add("d-none");
       }, 1500);
@@ -168,20 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  openBtn.addEventListener("click", openCurrentChannel);
-  copyBtn.addEventListener("click", copyCurrentChannel);
-
-  setInterval(() => {
-    cursorVisible = !cursorVisible;
-    if (typingDone && activeChannel !== null && !terminalText.classList.contains("d-none")) {
-      const baseText = terminalText.textContent.replace(/_$/, "").trimEnd();
-      renderCursorText(baseText);
-    }
-  }, 450);
-
-  window.addEventListener("keydown", (e) => {
-    const socialScreen = document.getElementById("social");
-    if (!socialScreen || socialScreen.classList.contains("d-none")) return;
+  function handleKeydown(e) {
+    if (!isSocialActive) return;
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -197,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (e.key === "Enter") {
       e.preventDefault();
+
       if (activeChannel !== null && typingDone) {
         openCurrentChannel();
       } else {
@@ -208,7 +217,57 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       copyCurrentChannel();
     }
-  });
+  }
+
+  function cleanupSocialSection() {
+    isSocialActive = false;
+
+    if (typingInterval) {
+      clearInterval(typingInterval);
+      typingInterval = null;
+    }
+
+    if (copiedTimeout) {
+      clearTimeout(copiedTimeout);
+      copiedTimeout = null;
+    }
+
+    if (cursorInterval) {
+      clearInterval(cursorInterval);
+      cursorInterval = null;
+    }
+
+    stopSafe(modemAudio);
+    stopSafe(chatAudio);
+    stopSafe(pickupAudio);
+
+    openBtn.onclick = null;
+    copyBtn.onclick = null;
+    window.removeEventListener("keydown", handleKeydown);
+
+    if (window.__socialSectionCleanup === cleanupSocialSection) {
+      window.__socialSectionCleanup = null;
+    }
+  }
+
+  if (window.__socialSectionCleanup) {
+    window.__socialSectionCleanup();
+  }
+
+  window.__socialSectionCleanup = cleanupSocialSection;
+
+  openBtn.onclick = openCurrentChannel;
+  copyBtn.onclick = copyCurrentChannel;
+
+  cursorInterval = setInterval(() => {
+    cursorVisible = !cursorVisible;
+
+    if (typingDone && activeChannel !== null && !terminalText.classList.contains("d-none")) {
+      renderCursorText(currentRenderedText);
+    }
+  }, 450);
+
+  window.addEventListener("keydown", handleKeydown);
 
   renderFreqList();
-});
+}

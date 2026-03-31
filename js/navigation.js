@@ -1,19 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   const menuButtons = document.querySelectorAll(".menu-btn");
-  const screens = document.querySelectorAll(".screen");
 
-  function showScreen(screenId) {
-    screens.forEach((screen) => {
-      const active = screen.id === screenId;
-      screen.classList.toggle("d-none", !active);
-    });
+  async function showScreen(screenId) {
+    if (!window.appSections) return;
 
-    menuButtons.forEach((button) => {
-      button.classList.toggle("active", button.dataset.screen === screenId);
+    await window.appSections.loadSection(screenId);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   }
 
   menuButtons.forEach((button) => {
-    button.addEventListener("click", () => showScreen(button.dataset.screen));
+    button.addEventListener("click", () => {
+      showScreen(button.dataset.screen);
+    });
   });
+
+  window.appNavigation = {
+    showScreen,
+  };
+
+  showScreen("home");
 });

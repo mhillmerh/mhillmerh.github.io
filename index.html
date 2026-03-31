@@ -1,491 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maximiliano Hillmer | Doom Portafolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maximiliano Hillmer | Doom Portafolio</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+    rel="stylesheet"
+  />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 </head>
-
 <body>
+  <section id="introScreen" class="intro-screen">
+    <div class="intro-overlay"></div>
 
-    <!-- INTRO -->
-    <section id="introScreen" class="intro-screen">
-        <div class="intro-overlay"></div>
-
-        <div class="intro-content">
-            <img src="assets/images/portafolio.png" alt="Doom Portafolio" class="doom-logo" />
-
-            <button id="pressStartBtn" class="press-start-btn">
-                PRESS START
-            </button>
-
-            <p class="start-hint">Haz click o presiona Enter</p>
-        </div>
-    </section>
-
-    <!-- TRANSICIÓN PUERTAS -->
-    <div id="doorTransition" class="door-transition hidden">
-        <div class="door left-door"></div>
-        <div class="door right-door"></div>
+    <div class="intro-content">
+      <img
+        src="assets/images/portafolio.png"
+        alt="Doom Portafolio"
+        class="doom-logo"
+      />
+      <button id="pressStartBtn" class="press-start-btn">PRESS START</button>
+      <p class="start-hint">Haz click o presiona Enter</p>
     </div>
+  </section>
 
-    <!-- APP -->
-    <div id="appShell" class="app-shell hidden">
-        <div class="container-fluid">
-            <div class="row g-0 min-vh-100">
-
-                <aside class="col-12 col-lg-3 sidebar-panel">
-                    <div class="sidebar-inner">
-                        <div class="logo-box">
-                            <p class="logo-pretitle">UAC // MARINE PORTFOLIO</p>
-                            <h1 class="logo-title">DOOM<br>PORTAFOLIO</h1>
-                            <p class="logo-subtitle">Maximiliano Hillmer</p>
-                        </div>
-
-                        <nav class="main-menu">
-                            <button class="menu-btn active" data-screen="home">Home</button>
-                            <button class="menu-btn" data-screen="about">About</button>
-                            <button class="menu-btn" data-screen="projects">Projects</button>
-                            <button class="menu-btn" data-screen="technologies">Technologies</button>
-                            <button class="menu-btn" data-screen="certifications">Certifications</button>
-                            <button class="menu-btn" data-screen="social">Social</button>
-                            <button class="menu-btn" data-screen="credits">Credits</button>
-                            <button class="menu-btn" data-screen="arcade">Arcade</button>
-                        </nav>
-                        <div class="top-controls">
-                            <button id="musicToggleBtn" class="music-toggle-btn" type="button">
-                                🔊 MUSIC ON
-                            </button>
-                        </div>
-                    </div>
-                </aside>
-
-                <main class="col-12 col-lg-9 main-panel">
-
-                    <div class="content-frame">
-
-                        <section id="home" class="screen active-screen">
-                            <div class="screen-header">
-                                <h2>HOME</h2>
-                            </div>
-
-                            <div class="screen-body">
-                                <div class="retro-card hero-card">
-                                    <p class="section-label">WELCOME TO THE PORTFOLIO</p>
-                                    <h3>Desarrollador web con estética retro y enfoque full stack</h3>
-                                    <p>
-                                        Aquí mantendremos tu estilo DOOM, pero con una estructura más estable,
-                                        responsive y fácil de mantener.
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="about" class="screen d-none">
-                            <div class="screen-header">
-                                <h2>ABOUT</h2>
-                            </div>
-
-                            <div class="screen-body">
-                                <div class="row g-4">
-                                    <!-- PANEL IZQUIERDO -->
-                                    <div class="col-12 col-xl-4">
-                                        <div class="retro-card about-profile-card">
-                                            <p class="section-label">MARINE FILE</p>
-
-                                            <div class="about-avatar-frame">
-                                                <img src="assets/images/foto.png" alt="Foto de Maximiliano Hillmer"
-                                                    class="about-avatar" />
-                                            </div>
-
-                                            <div class="about-status-list">
-                                                <div class="status-row">
-                                                    <span class="status-label">Nombre</span>
-                                                    <span class="status-value">Maximiliano Hillmer</span>
-                                                </div>
-
-                                                <div class="status-row">
-                                                    <span class="status-label">Rol</span>
-                                                    <span class="status-value">Desarrollador Full Stack Jr.</span>
-                                                </div>
-
-                                                <div class="status-row">
-                                                    <span class="status-label">Estado</span>
-                                                    <span class="status-value online">ONLINE</span>
-                                                </div>
-
-                                                <div class="status-row">
-                                                    <span class="status-label">Ubicación</span>
-                                                    <span class="status-value">Chile</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- PANEL DERECHO -->
-                                    <div class="col-12 col-xl-8">
-                                        <div class="retro-card about-main-card">
-                                            <p class="section-label">PLAYER PROFILE</p>
-
-                                            <h3 class="about-title">
-                                                Desarrollador enfocado en crear soluciones web funcionales, claras y con
-                                                identidad visual
-                                            </h3>
-
-                                            <p class="about-text">
-                                                Soy desarrollador con interés en desarrollo web, backend, testing,
-                                                automatización y construcción de proyectos que no solo funcionen bien,
-                                                sino que también entreguen una experiencia visual atractiva.
-                                            </p>
-
-                                            <p class="about-text">
-                                                Me gusta trabajar con tecnologías como Java, Python, JavaScript,
-                                                SQL, Docker y herramientas de pruebas, además de seguir mejorando
-                                                en arquitectura, buenas prácticas y diseño orientado a usuario.
-                                            </p>
-
-                                            <p class="about-text">
-                                                Este portafolio refleja justamente esa idea: unir una estética retro
-                                                inspirada en DOOM con una estructura moderna, responsive y sólida.
-                                            </p>
-
-                                            <div class="about-actions">
-                                                <a href="mailto:m.hillmerh@gmail.com" class="doom-action-btn">Correo</a>
-                                                <a href="https://github.com/mhillmerh" target="_blank"
-                                                    class="doom-action-btn alt">GitHub</a>
-                                                <a href="https://www.linkedin.com/in/maximilianohillmer" target="_blank"
-                                                    class="doom-action-btn alt">LinkedIn</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="retro-card about-stats-card mt-4">
-                                            <p class="section-label">CORE STATS</p>
-
-                                            <div class="row g-3">
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mini-stat-card">
-                                                        <h4>Frontend</h4>
-                                                        <p>HTML, CSS, JavaScript, Bootstrap</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mini-stat-card">
-                                                        <h4>Backend</h4>
-                                                        <p>Java, Python, APIs REST, SQL, MySQL</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mini-stat-card">
-                                                        <h4>Testing</h4>
-                                                        <p>Postman, JMeter, pruebas funcionales</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mini-stat-card">
-                                                        <h4>Herramientas</h4>
-                                                        <p>Git, GitHub, Docker, VS Code, IntelliJ</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="projects" class="screen d-none">
-                            <div class="screen-header">
-                                <h2>PROJECTS</h2>
-                            </div>
-
-                            <div class="screen-body">
-                                <div class="retro-card projects-main-card">
-                                    <div class="projects-topbar">
-                                        <div>
-                                            <p class="section-label">MISSION LOG</p>
-                                            <p class="projects-subtitle">
-                                                Proyectos desarrollados para práctica, aprendizaje y portafolio
-                                                profesional.
-                                            </p>
-                                        </div>
-
-                                        <div class="projects-pagination" id="projectsPagination">
-                                            <button id="projectsPrevBtn" class="projects-page-btn" type="button">◀
-                                                Prev</button>
-                                            <span id="projectsPageIndicator" class="projects-page-indicator">1 /
-                                                1</span>
-                                            <button id="projectsNextBtn" class="projects-page-btn" type="button">Next
-                                                ▶</button>
-                                        </div>
-                                    </div>
-
-                                    <div id="projectsGrid" class="projects-grid-custom"></div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="technologies" class="screen d-none">
-                            <div class="screen-header">
-                                <h2>TECHNOLOGIES</h2>
-                            </div>
-
-                            <div class="screen-body">
-                                <div class="retro-card technologies-main-card">
-                                    <div class="technologies-topbar">
-                                        <div>
-                                            <p class="section-label">ARSENAL / LOADOUT</p>
-                                            <p class="technologies-subtitle">
-                                                Herramientas y tecnologías que uso para desarrollo, testing y
-                                                despliegue.
-                                            </p>
-                                        </div>
-
-                                        <div class="technologies-pagination" id="technologiesPagination">
-                                            <button id="techPrevBtn" class="technologies-page-btn" type="button">◀
-                                                Prev</button>
-                                            <span id="techPageIndicator" class="technologies-page-indicator">1 /
-                                                1</span>
-                                            <button id="techNextBtn" class="technologies-page-btn" type="button">Next
-                                                ▶</button>
-                                        </div>
-                                    </div>
-
-                                    <div id="technologiesGrid" class="technologies-grid-custom"></div>
-                                </div>
-                            </div>
-                        </section>
-                        <section id="certifications" class="screen d-none">
-  <div class="screen-header">
-    <h2>CERTIFICATIONS</h2>
+  <div id="doorTransition" class="door-transition hidden">
+    <div class="door left-door"></div>
+    <div class="door right-door"></div>
   </div>
 
-  <div class="screen-body">
-    <div class="retro-card certifications-main-card">
-      <div class="certifications-topbar">
-        <div>
-          <p class="section-label">UAC TRAINING ARCHIVE</p>
-          <p class="certifications-subtitle">
-            Certificaciones, cursos y formación complementaria relevante para mi perfil.
-          </p>
-        </div>
-
-        <div class="certifications-pagination" id="certificationsPagination">
-          <button id="certPrevBtn" class="certifications-page-btn" type="button">◀ Prev</button>
-          <span id="certPageIndicator" class="certifications-page-indicator">1 / 1</span>
-          <button id="certNextBtn" class="certifications-page-btn" type="button">Next ▶</button>
-        </div>
-      </div>
-
-      <div id="certificationsGrid" class="certifications-grid-custom"></div>
-    </div>
-  </div>
-</section>
-
-                        <section id="social" class="screen d-none">
-  <div class="screen-header">
-    <h2>SOCIAL</h2>
-  </div>
-
-  <div class="screen-body">
-    <div class="retro-card social-main-card">
-      <div class="crt-overlay"></div>
-
-      <p class="section-label">COMMUNICATION UPLINK</p>
-      <h3 class="social-title-doom">COMMUNICATION UPLINK</h3>
-
-      <div class="social-layout-doom">
-        <aside id="socialFreqList" class="social-freq-doom"></aside>
-
-        <section class="social-terminal-doom">
-          <p id="socialIdleText" class="terminal-idle-doom">
-            &gt; Select a frequency channel...
-          </p>
-
-          <pre id="socialTerminalText" class="terminal-text-doom d-none"></pre>
-
-          <div id="socialTerminalActions" class="terminal-actions-doom d-none">
-            <button id="socialOpenBtn" class="doom-btn-terminal" type="button">
-              OPEN LINK
-            </button>
-            <button id="socialCopyBtn" class="doom-btn-terminal" type="button">
-              COPY
-            </button>
-          </div>
-
-          <p id="socialCopiedMsg" class="copied-msg-doom d-none">
-            &gt; COPIED TO BUFFER.
-          </p>
-        </section>
-      </div>
-    </div>
-  </div>
-</section>
-
-                        <section id="credits" class="screen d-none">
-  <div class="screen-header">
-    <h2>CREDITS</h2>
-  </div>
-
-  <div class="screen-body">
-    <div class="retro-card credits-main-card">
-      <div class="credits-topbar">
-        <p class="section-label">END SEQUENCE</p>
-
-        <div class="credits-controls">
-          <button id="creditsToggleBtn" class="credits-btn" type="button">
-            PAUSE
-          </button>
-          <button id="creditsRestartBtn" class="credits-btn" type="button">
-            RESTART
-          </button>
-        </div>
-      </div>
-
-      <div class="credits-stage">
-        <div id="creditsRoll" class="credits-roll">
-          <div class="credits-block">
-            <h3 class="credits-title">DOOM PORTAFOLIO</h3>
-            <p class="credits-line">A retro-inspired developer portfolio</p>
-          </div>
-
-          <div class="credits-block">
-            <h4 class="credits-subtitle">Developer</h4>
-            <p class="credits-line">Maximiliano Hillmer</p>
-          </div>
-
-          <div class="credits-block">
-            <h4 class="credits-subtitle">Concept</h4>
-            <p class="credits-line">Retro interface inspired by classic shooters</p>
-            <p class="credits-line">Responsive portfolio for desktop, tablet and mobile</p>
-          </div>
-
-          <div class="credits-block">
-            <h4 class="credits-subtitle">Main Stack</h4>
-            <p class="credits-line">HTML</p>
-            <p class="credits-line">CSS</p>
-            <p class="credits-line">JavaScript</p>
-            <p class="credits-line">Bootstrap</p>
-          </div>
-
-          <div class="credits-block">
-            <h4 class="credits-subtitle">Additional Tools</h4>
-            <p class="credits-line">Java</p>
-            <p class="credits-line">Python</p>
-            <p class="credits-line">MySQL</p>
-            <p class="credits-line">Docker</p>
-            <p class="credits-line">Git & GitHub</p>
-            <p class="credits-line">Postman & JMeter</p>
-          </div>
-
-          <div class="credits-block">
-            <h4 class="credits-subtitle">Special Thanks</h4>
-            <p class="credits-line">Mi esposa</p>
-            <p class="credits-line">Mis hijos</p>
-            <p class="credits-line">w3school</p>
-            <p class="credits-line">Video Games</p>
-            <p class="credits-line">Comida China</p>
-            <p class="credits-line">Galletas</p>
-            <p class="credits-line">Chocolate</p>
-            <p class="credits-line">Mis gatitos</p>
-            <p class="credits-line">Chatgpt para la correciones de CSS</p>
-          </div>
-
-          <div class="credits-block credits-final-block">
-            <h3 class="credits-title">🏆 ACHIEVEMENT UNLOCKED 🏆</h3>
-            <p class="credits-line">Thanks for Watching</p>
-            <p class="credits-line">UAC transmission terminated...</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-                        <section id="arcade" class="screen d-none">
-                            <div class="screen-header">
-                                <h2>ARCADE</h2>
-                            </div>
-
-                            <div class="screen-body">
-                                <div class="retro-card arcade-main-card">
-                                    <p class="section-label">BONUS MODE / UAC SIMULATION</p>
-
-                                    <div class="arcade-hero">
-                                        <div class="arcade-visual">
-                                            <img src="assets/images/caution.png" alt="Arcade inspirado en Doom"
-                                                class="arcade-image" />
-                                        </div>
-
-                                        <div class="arcade-info">
-                                            <span class="arcade-badge">UAC MODULE LOCKED</span>
-
-<h3 class="arcade-title">
-  Acceso restringido al módulo Arcade
-</h3>
-
-<p class="arcade-text">
-  Acceso restringido. El módulo Arcade aún está siendo ensamblado por la UAC.
-</p>
-
-<p class="arcade-text">
-  Se detecta actividad en el sistema. Próximamente se habilitarán simulaciones
-  interactivas, minijuegos y experiencias retro dentro del portafolio.
-</p>
-
-<div class="arcade-status-box">
-  <p><span class="arcade-status-label">STATUS:</span> INITIALIZING...</p>
-  <p><span class="arcade-status-label">SECURITY:</span> LOCKED</p>
-  <p><span class="arcade-status-label">PROGRESS:</span> 35%</p>
-</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                    </div>
-                </main>
+  <div id="appShell" class="app-shell hidden">
+    <div class="container-fluid">
+      <div class="row g-0 min-vh-100">
+        <aside class="col-12 col-lg-3 sidebar-panel">
+          <div class="sidebar-inner">
+            <div class="logo-box">
+              <p class="logo-pretitle">UAC // MARINE PORTFOLIO</p>
+              <h1 class="logo-title">DOOM<br>PORTAFOLIO</h1>
+              <p class="logo-subtitle">Maximiliano Hillmer</p>
             </div>
-        </div>
+
+            <nav class="main-menu">
+              <button class="menu-btn active" data-screen="home">Home</button>
+              <button class="menu-btn" data-screen="about">About</button>
+              <button class="menu-btn" data-screen="projects">Projects</button>
+              <button class="menu-btn" data-screen="technologies">Technologies</button>
+              <button class="menu-btn" data-screen="certifications">Certifications</button>
+              <button class="menu-btn" data-screen="social">Social</button>
+              <button class="menu-btn" data-screen="credits">Credits</button>
+              <button class="menu-btn" data-screen="arcade">Arcade</button>
+            </nav>
+
+            <div class="sidebar-audio-controls">
+              <button id="musicToggleBtn" class="music-toggle-btn" type="button">
+                AUDIO: ON
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-12 col-lg-9 main-panel">
+          <div class="content-frame" id="screenContainer">
+            <div class="loading-screen">
+              <p>Cargando módulo...</p>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
+  </div>
 
-    <!-- AUDIO -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="assets/sounds/At Doom's Gate.wav" type="audio/wav" />
-    </audio>
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/sounds/At Doom's Gate.wav" type="audio/wav" />
+  </audio>
 
-    <audio id="doorSound" preload="auto">
-        <source src="assets/sounds/doom_door.wav" type="audio/wav" />
-    </audio>
+  <audio id="doorSound" preload="auto">
+    <source src="assets/sounds/doom_door.wav" type="audio/wav" />
+  </audio>
 
-    <audio id="switchSound" preload="auto">
-        <source src="assets/sounds/doom_switch.wav" type="audio/wav" />
-    </audio>
-    <audio id="creditsMusic" loop preload="auto">
-        <source src="assets/sounds/Victory.wav" type="audio/mpeg" />
-    </audio>
+  <audio id="switchSound" preload="auto">
+    <source src="assets/sounds/doom_switch.wav" type="audio/wav" />
+  </audio>
 
-    <script src="js/navigation.js"></script>
-    <script src="js/intro.js"></script>
-    <script src="js/projects.js"></script>
-    <script src="js/technologies.js"></script>
-    <script src="js/certifications.js"></script>
-    <script src="js/social.js"></script>
-    <script src="js/credits.js"></script>
-    <script src="js/main.js"></script>
+  <audio id="creditsMusic" loop preload="auto">
+    <source src="assets/sounds/Victory.wav" type="audio/mpeg" />
+  </audio>
+
+<script src="js/intro.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/technologies.js"></script>
+<script src="js/certifications.js"></script>
+<script src="js/social.js"></script>
+<script src="js/credits.js"></script>
+<script src="js/sections-loader.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/main.js"></script>
 </body>
-
 </html>
